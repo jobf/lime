@@ -250,6 +250,24 @@ class HTML5Platform extends PlatformTarget
 		}
 
 		dependencyPath = project.config.getString("html5.dependency-path", "lib");
+
+		if(project.defines.exists("cachebusting")){
+
+			var now = Date.now();
+
+			var dateParts = [
+				now.getUTCFullYear(),
+				now.getUTCMonth(),
+				now.getUTCDate(),
+				now.getUTCHours(),
+				now.getUTCMinutes(),
+			];
+
+			var dateTime = dateParts.join("");
+
+			project.app.file += "." + dateTime;
+		}
+
 		outputFile = targetDirectory + "/bin/" + project.app.file + ".js";
 
 		try
